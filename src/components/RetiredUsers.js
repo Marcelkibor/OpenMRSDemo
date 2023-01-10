@@ -20,7 +20,9 @@ function getRetiredUsers(){
 }
   return (
     <div> 
-      <h4>Fetch a list of retired users <button onClick={getRetiredUsers}>Go</button></h4>
+      <span><a style={{fontSize:'15px'}} href='/authenticated'>Back</a></span>
+      <h5>Fetch a list of retired users </h5>
+      <button onClick={getRetiredUsers}>Fetch</button>
 
     </div>
   )

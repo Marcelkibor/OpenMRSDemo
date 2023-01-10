@@ -32,10 +32,13 @@ isLoggedOut(true)
 <a href='/changepassword'>Change Password</a>
 </li>
 <li>
-<a href='/retired'>Get retired users</a>
+<a href='/retired'>Get Retired Users</a>
 </li>
 <li>
 <a href='/locations'>Get Locations</a>
+</li>
+<li>
+<a href='/createuser'>Create Users</a>
 </li>
 </ul>
 

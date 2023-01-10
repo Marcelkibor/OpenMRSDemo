@@ -20,6 +20,7 @@ console.log(requestBody)
     }
   return (
     <div>
+      <span><a style={{fontSize:'15px'}} href='/authenticated'>Back</a></span>
         <button onClick={getLocations}>Get Locations</button>
     </div>
   )

@@ -8,7 +8,7 @@ function CreateUser(){
   return (
     <div>
         <h3>
-            Fill in the form to create a new user
+            Fill in the form to create a new user <span><a style={{fontSize:'15px'}} href='/authenticated'>Back</a></span>
         </h3>
         <>
         <label>Given Name&nbsp; <input placeholder='First Name' name='givenName'></input></label><br></br>

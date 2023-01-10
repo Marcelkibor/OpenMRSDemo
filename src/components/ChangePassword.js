@@ -23,8 +23,10 @@ body:raw
 }
  return (
     <>
-    <input placeholder='new password'></input>
-    <input placeholder='confirm password'></input>
+    <span><a style={{fontSize:'15px'}} href='/authenticated'>Back</a></span><br></br>
+    <h5>Change your password</h5>
+    <input placeholder='new password'></input><br></br>
+    <input placeholder='confirm password'></input><br></br><br></br>
     <button>ChangePassword</button>
     </>
     
