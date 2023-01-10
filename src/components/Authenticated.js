@@ -4,12 +4,8 @@ import App from '../App'
 const Authenticated = () => {
   const[logOut,isLoggedOut] = useState(false);
   const [users,setUsers] = useState([]);
-  function logOutSession(){
-    isLoggedOut(!logOut)
-    // <Navigate to="/"/>
-  }
   useEffect(()=>{
-    const getSession = window.localStorage.getItem("userCookieId")
+    const getSession = window.localStorage.getItem("JSESSIONID")
   fetch("openmrs/ws/rest/v1/user?q=admin&v=default",{
     headers:{
       "Content-Type":"application/json;charset=UTF-8",
@@ -24,13 +20,28 @@ const Authenticated = () => {
     redirect: 'follow'
   }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
     // const authValue = headers.get("authorization");
-    setUsers(requestBody.results);
-    console.log(users)
+    var res  = requestBody.results
+    setUsers(res);
+    console.log(res)
   })
-  },[...users]);
+  },[]);
+  function logOutSession(){
+    fetch("openmrs/ws/rest/v1/session",{
+      headers:{
+        "Content-Type":"application/x-javascript;charset=UTF-8",
+        'Authorization': 'Basic '+btoa('admin:Admin123'), 
+      },
+      // credentials:"omit",
+      method:"DELETE",
+      redirect: 'follow'
+    }).then(response => response.text())
+    .then(result => console.log(result))
+    .then(window.localStorage.removeItem("JSESSIONID"))
+    .then( isLoggedOut(!logOut))
+    .catch(error => console.log('error', error));
+    };
   function getRetiredUsers(){
-console.log("length of users array is "+users.length)
-  }
+}
   return (
     <>
     {logOut ? <App/>:
