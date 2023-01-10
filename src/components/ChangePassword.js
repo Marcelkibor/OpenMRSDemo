@@ -23,6 +23,8 @@ body:raw
 }
  return (
     <>
+    <input placeholder='new password'></input>
+    <input placeholder='confirm password'></input>
     <button>ChangePassword</button>
     </>
     
