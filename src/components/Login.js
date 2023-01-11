@@ -2,19 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import Authenticated from './Authenticated';
 function Login(){
-  const [authenticated, setauthenticated] = useState(localStorage.getItem(localStorage.getItem("JSESSIONID")|| false));
+  const [authenticated, setauthenticated] = useState(JSON.parse(localStorage.getItem("JSESSIONID")|| false));
+  console.log(authenticated)
   const LoginFunc = ()=>{
-    // fetch("openmrs/ws/rest/v1/session",{
-    //   headers:{
-    //   "Content-Type":"application/x-javascript;charset=UTF-8",
-    //   'Authorization': 'Basic '+btoa('admin:Admin123'), 
-    //   },
-    //   method:"GET",
-    //   redirect: 'follow'
-    //   }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-    //   window.localStorage.setItem("JSESSIONID",JSON.stringify(requestBody.sessionId))
-    //   console.log(requestBody)
-    //   },)
+    fetch("openmrs/ws/rest/v1/session",{
+      headers:{
+      "Content-Type":"application/x-javascript;charset=UTF-8",
+      'Authorization': 'Basic '+btoa('amrs_test:Ampath123'), 
+      },
+      method:"GET",
+      redirect: 'follow'
+      }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
+      window.localStorage.setItem("JSESSIONID",JSON.stringify(requestBody.sessionId))
+      console.log(requestBody)
+      },)
     setauthenticated(!authenticated)
   }
 
