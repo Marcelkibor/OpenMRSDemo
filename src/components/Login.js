@@ -22,29 +22,26 @@ SetFormData({...FormData, [e.target.name]:e.target.value})
       method:"GET",
       redirect: 'follow'
       }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-      window.localStorage.setItem("JSESSIONID",JSON.stringify(requestBody.sessionId))
-      setauthenticated(!authenticated)
-      console.log(requestBody)
-      },)
+      window.localStorage.setItem("JSESSIONID",JSON.stringify(requestBody.sessionId));
+      window.localStorage.setItem("BTOA",JSON.stringify(btoa(username+":"+password)));
+      setauthenticated(!authenticated);
 
+      },)
   }
   return (
     <div>
       {authenticated ? <Authenticated/>:<>
-<form >
+<Form >
 <Form.Label>Username:</Form.Label>&nbsp;
 <Form.Control type="text" placeholder="username" 
 name = 'username' value  = {username} onChange = {onChange} autoComplete = "on"/>
 <br></br><Form.Label>Password:</Form.Label>&nbsp;&nbsp;
 <Form.Control type="password" placeholder="******" 
 name = 'password' value  = {password} onChange = {onChange} autoComplete = "on"/><br></br>
-</form>
+</Form>
 <Button
-variant="primary" 
-type = 'submit'
 onClick={gotEmail}
 >
- 
 Login
 </Button>
       </>}

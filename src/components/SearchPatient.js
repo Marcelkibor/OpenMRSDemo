@@ -1,16 +1,21 @@
 import React from 'react'
+import { Form, Button } from 'react-bootstrap'
+import { useState } from 'react'
 function SearchPatient (){
-const createUser=()=>{
 const getSession = JSON.parse(window.localStorage.getItem("JSESSIONID"))
-//create person raw
-// var raw = JSON.stringify({"names":[{"givenName":"Marcel","familyName":"Omwenga"}],"gender":"M","birthdate":"1997-09-02","addresses":[{"address1":"30, Vivekananda Layout, Munnekolal,Marathahalli","cityVillage":"Bengaluru","country":"India","postalCode":"560037"}]});
-// create patient from person raw
-// var raw = JSON.stringify({"person":"66d5327e-3b09-4edc-8aae-5291eb9707d5","identifiers":[{"identifier":"1003EY","identifierType":"05a29f94-c0ed-11e2-94be-8c13b969e334","location":"8d6c993e-c2cc-11de-8d13-0010c6dffd0f","preferred":false}]});
-
-fetch("/openmrs/ws/rest/v1/patient?q=Marcel&v=default&limit=1",{
+const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"))
+const [FormData,SetFormData] = useState({
+  username:'',
+})
+const { username} = FormData;
+const onChange = (e)=>{
+SetFormData({...FormData, [e.target.name]:e.target.value})
+}
+const searchUser=(e)=>{
+fetch("/openmrs/ws/rest/v1/patient?q="+username+"&v=default&limit=1",{
     headers:{
     "Content-Type":"application/json;charset=UTF-8",
-    'Authorization': 'Basic '+btoa('amrs_test:Ampath123'),
+    'Authorization': 'Basic '+getBtoa,
     "Cookie": "JSESSIONID="+getSession, 
     },
     credentials:"same-origin",
@@ -22,10 +27,16 @@ fetch("/openmrs/ws/rest/v1/patient?q=Marcel&v=default&limit=1",{
     },)
 }
   return (
-    <div><a href='/authenticated'>Back</a> Search for patient by name
-        <br></br>
-        <input placeholder='Search by name'></input>
-        <button onClick={createUser}>Search</button>
+    <div>
+<a href='/authenticated'>Back</a> 
+<h4>Search for patient by name</h4>
+<br></br>
+<Form>
+<Form.Label>Username:</Form.Label>&nbsp;
+<Form.Control type="text" placeholder="Search patient name" 
+name = 'username' value  = {username} onChange = {onChange} autoComplete = "on"/>
+<Button onClick={searchUser}>Search</Button></Form>
+
     </div>
   )
 }

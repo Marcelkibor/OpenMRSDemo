@@ -17,6 +17,7 @@ redirect: 'follow'
 }).then(response => response.text())
 .then(result => console.log(result))
 .then(window.localStorage.removeItem("JSESSIONID"))
+.then(window.localStorage.removeItem("BTOA"))
 .then(isLoggedOut(true))
 .catch(error => console.log('error', error));
 isLoggedOut(true)
