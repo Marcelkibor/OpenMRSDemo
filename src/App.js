@@ -2,6 +2,7 @@ import './App.css';
 import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Authenticated from './components/Authenticated';
 import Login from './components/Login';
+import Navigator from './components/Navigator';
 import SearchPatient from './components/SearchPatient';
 function App() {
   return (

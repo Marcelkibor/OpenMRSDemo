@@ -4,12 +4,13 @@ import App from '../App'
 import Login from './Login';
 function Authenticated (){
 const [logOut,isLoggedOut] = useState(false);
+const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"))
 const logOutSession = ()=>{
 // this function performs log out and destroying of the Jsession id
 fetch("openmrs/ws/rest/v1/session",{
 headers:{
 "Content-Type":"application/x-javascript;charset=UTF-8",
-'Authorization': 'Basic '+btoa('admin:Admin123'), 
+'Authorization': 'Basic '+getBtoa, 
 },
 // credentials:"omit",
 method:"DELETE",
@@ -20,7 +21,6 @@ redirect: 'follow'
 .then(window.localStorage.removeItem("BTOA"))
 .then(isLoggedOut(true))
 .catch(error => console.log('error', error));
-isLoggedOut(true)
 };
  return (
 <>
