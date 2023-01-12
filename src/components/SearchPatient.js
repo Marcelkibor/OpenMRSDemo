@@ -48,7 +48,7 @@ isLoading(true)
         </Form>
       <div className = "fetchedUser" >
     {userDetails.map(user => (
-  <div style={{padding:"10px 0px 10px 10px"}} onClick={getUserPanel} key={user.person}>
+  <div style={{padding:"10px 0px 10px 10px"}} href="/panel" onClick={getUserPanel} key={user.person}>
     <span style={{color:'white',Height:"5vh",fontWeight:"bolder", fontSize:'23px'}}>Patient Details</span>
       <span style={{color:'white'}}>
         <h6 style={{fontSize:"16px"}}>Name: <span style={{fontWeight:"300"}}>{user.person.display}</span></h6> </span>

@@ -4,7 +4,7 @@ import Login from './Login';
 function UserPanel(){
     const [loggedIn,isLoggedIn]= useState(window.localStorage.getItem("JSESSIONID")||false);
   return (
-    <div style={{height:"135vh"}}>
+    <div style={{height:"130vh"}}>
         {loggedIn ? <>
           <div className='patientDetails'>
             <br></br>

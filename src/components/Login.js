@@ -13,7 +13,11 @@ const onChange = (e)=>{
 SetFormData({...FormData, [e.target.name]:e.target.value})
 }
   const gotEmail=(e)=>{ 
-    e.preventDefault();
+    if(username.trim().length==0||password.trim().length==0){
+alert("Fill in form details!")
+    }
+    else{
+      e.preventDefault();
       fetch("openmrs/ws/rest/v1/session",{
       headers:{
       "Content-Type":"application/x-javascript;charset=UTF-8",
@@ -27,6 +31,8 @@ SetFormData({...FormData, [e.target.name]:e.target.value})
       setauthenticated(!authenticated);
 console.log(requestBody)
       },)
+    }
+ 
   }
   return (
     <div>
