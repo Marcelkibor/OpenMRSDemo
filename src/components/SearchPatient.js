@@ -50,11 +50,11 @@ name = 'username' value  = {username} onChange = {onChange} autoComplete = "on"/
 </Form>
 <div className = "fetchedUser" >
   {userDetails.map(user => (
-<div onClick={getUserPanel} key={user.person}>
-  <span style={{color:'white',Height:"5vh",fontWeight:"bolder"}}>Patient Details</span>
-<span><h6 style={{fontWeight:"bold"}}>Name:</h6> {user.person.display}</span>
-<span> <h6  style={{fontWeight:"bold"}}>BirthDate:</h6>{user.person.birthdate}</span>
-<span><h6 style={{fontWeight:"bold"}}>Gender:</h6> {user.person.gender}</span>
+<div style={{padding:"10px 0px 10px 10px"}} onClick={getUserPanel} key={user.person}>
+  <span style={{color:'white',Height:"5vh",fontWeight:"bolder", fontSize:'23px'}}>Patient Details</span>
+<span style={{color:'white'}}><h6 style={{fontSize:"16px"}}>Name: <span style={{fontWeight:"300"}}>{user.person.display}</span></h6> </span>
+<span style={{color:'white'}}> <h6  style={{fontSize:"16px"}} >BirthDate: <span style={{fontWeight:"300"}}>{user.person.birthdate}</span></h6></span>
+<span style={{color:'white'}}><h6 style={{fontSize:"16px"}} >Gender: <span style={{fontWeight:"300"}}>{user.person.gender}</span></h6> </span>
 </div>
 ),
 )}
