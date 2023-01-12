@@ -25,7 +25,7 @@ SetFormData({...FormData, [e.target.name]:e.target.value})
       window.localStorage.setItem("JSESSIONID",JSON.stringify(requestBody.sessionId));
       window.localStorage.setItem("BTOA",JSON.stringify(btoa(username+":"+password)));
       setauthenticated(!authenticated);
-
+console.log(requestBody)
       },)
   }
   return (
