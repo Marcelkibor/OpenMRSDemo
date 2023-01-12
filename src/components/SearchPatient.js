@@ -40,9 +40,13 @@ useEffect(()=>{
 <Form.Label>Username:</Form.Label>&nbsp;
 <Form.Control type="text" placeholder="Search patient name" 
 name = 'username' value  = {username} onChange = {onChange} autoComplete = "on"/>
-
 </Form>
 
+{userDetails.map(user => (
+                <div key={user.person}>
+                    <p>{user.person.display}</p>
+                </div>
+            ))}
 </div>
 
   )
