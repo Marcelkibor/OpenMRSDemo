@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import Login from './Login';
 
-const UserPanel = () => {
+function UserPanel(){
+    const [loggedIn,isLoggedIn]= useState(window.localStorage.getItem("JSESSIONID")||false);
   return (
     <div>
-        <p>User Details</p>
+        {loggedIn ? <>
+            <p>User Details</p>
+        </>:<Login/>}
+ 
     </div>
   )
 }
-
 export default UserPanel

@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useState } from 'react'
 import UserPanel from './UserPanel'
+import Login from './Login'
 function SearchPatient (){
 const getSession = JSON.parse(window.localStorage.getItem("JSESSIONID"))
 const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"))
@@ -9,6 +10,7 @@ const [FormData,SetFormData] = useState({
   username:'',
 })
 const[userDetails,setUserDetails] = useState([])
+const [loggedIn,isLoggedIn]= useState(window.localStorage.getItem("JSESSIONID")||false);
 const [loading,isLoading] = useState(false);
 //is loading is a state that determines if the div with fetched results has been clicked.
 // by default it's false, which renders the division as is, otherwise navigate to user panel
@@ -38,7 +40,8 @@ isLoading(true)
 }
   return (
     <div>
-      {loading ? <UserPanel/>:
+      {loggedIn ? <>
+        {loading ? <UserPanel/>:
       <>
       <h6>Search for patient by name</h6>
 <Form>
@@ -57,6 +60,8 @@ name = 'username' value  = {username} onChange = {onChange} autoComplete = "on"/
 )}
 </div>
 </>}
+      </>:<Login/>}
+
 </div>
 )
 }
