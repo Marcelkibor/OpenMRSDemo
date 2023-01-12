@@ -26,7 +26,7 @@ useEffect(()=>{
     redirect: 'follow',
     }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
     // console.log(requestBody)
-    setUserDetails(requestBody)
+    setUserDetails(requestBody.results)
     console.log(userDetails)
     
     },)
