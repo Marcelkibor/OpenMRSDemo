@@ -1,9 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { Navigate } from 'react-router-dom'
-import App from '../App'
+import React, { useState } from 'react'
 import Login from './Login';
 function Authenticated (){
 const [logOut,isLoggedOut] = useState(false);
+//get btoa for destroying a session
 const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"))
 const logOutSession = ()=>{
 // this function performs log out and destroying of the Jsession id
@@ -12,11 +11,11 @@ headers:{
 "Content-Type":"application/x-javascript;charset=UTF-8",
 'Authorization': 'Basic '+getBtoa, 
 },
-// credentials:"omit",
 method:"DELETE",
 redirect: 'follow'
 }).then(response => response.text())
 .then(result => console.log(result))
+//if successful, destroy the btoa and session id
 .then(window.localStorage.removeItem("JSESSIONID"))
 .then(window.localStorage.removeItem("BTOA"))
 .then(isLoggedOut(true))
@@ -25,12 +24,14 @@ redirect: 'follow'
  return (
 <>
 {logOut ? <Login/>:<>
-<h4>Authenticated <button onClick={logOutSession}>Logout</button></h4>
 <>
-<p>You can perform the following operations</p>
+<p>You can perform the following operations:</p>
 <ul>
 <li>
 <a href='/search'> Search Patient</a>
+</li>
+<li>
+<a  href = "/"onClick={logOutSession}>Log Out</a>
 </li>
 </ul>
 </>

@@ -7,6 +7,7 @@ import SearchPatient from './components/SearchPatient';
 function App() {
   return (
 <Router>
+  <Navigator/>
   <Routes>
 <Route path="/" element={<Login/>} exact />
 <Route path ='/authenticated' element= {<Authenticated/>}/>

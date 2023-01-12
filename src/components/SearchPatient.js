@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { Form, Button } from 'react-bootstrap'
 import { useState } from 'react'
+import UserPanel from './UserPanel'
 function SearchPatient (){
 const getSession = JSON.parse(window.localStorage.getItem("JSESSIONID"))
 const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"))
@@ -8,7 +9,9 @@ const [FormData,SetFormData] = useState({
   username:'',
 })
 const[userDetails,setUserDetails] = useState([])
-const [loading,isLoading] = useState(true);
+const [loading,isLoading] = useState(false);
+//is loading is a state that determines if the div with fetched results has been clicked.
+// by default it's false, which renders the division as is, otherwise navigate to user panel
 const { username} = FormData;
 const onChange = (e)=>{
 SetFormData({...FormData, [e.target.name]:e.target.value})
@@ -28,28 +31,34 @@ useEffect(()=>{
     // console.log(requestBody)
     setUserDetails(requestBody.results)
     console.log(userDetails)
-    
     },)
 },[username])
+const getUserPanel=()=>{
+isLoading(true)
+}
   return (
     <div>
-<a href='/authenticated'>Back</a> 
-<h4>Search for patient by name</h4>
-<br></br>
+      {loading ? <UserPanel/>:
+      <>
+      <h6>Search for patient by name</h6>
 <Form>
-<Form.Label>Username:</Form.Label>&nbsp;
 <Form.Control type="text" placeholder="Search patient name" 
 name = 'username' value  = {username} onChange = {onChange} autoComplete = "on"/>
 </Form>
-
-{userDetails.map(user => (
-                <div key={user.person}>
-                    <p>{user.person.display}</p>
-                </div>
-            ))}
+<div className = "fetchedUser" >
+  {userDetails.map(user => (
+<div onClick={getUserPanel} key={user.person}>
+  <span style={{color:'white',Height:"5vh",fontWeight:"bolder"}}>Patient Details</span>
+<span><h6 style={{fontWeight:"bold"}}>Name:</h6> {user.person.display}</span>
+<span> <h6  style={{fontWeight:"bold"}}>BirthDate:</h6>{user.person.birthdate}</span>
+<span><h6 style={{fontWeight:"bold"}}>Gender:</h6> {user.person.gender}</span>
 </div>
-
-  )
+),
+)}
+</div>
+</>}
+</div>
+)
 }
 
 export default SearchPatient
