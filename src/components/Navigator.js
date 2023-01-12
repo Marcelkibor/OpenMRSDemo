@@ -33,6 +33,7 @@ redirect: 'follow'
 <Container>
           <Nav className="me-auto">
             <Nav.Link style={{color:'white'}} href="/">Home</Nav.Link>
+            <Nav.Link style={{color:'white'}} href="/search">Search</Nav.Link>
           </Nav>
         </Container>
 </Navbar.Collapse>

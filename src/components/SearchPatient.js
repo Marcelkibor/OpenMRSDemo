@@ -39,31 +39,28 @@ const getUserPanel=()=>{
 isLoading(true)
 }
   return (
-    <div>
-      {loggedIn ? <>
-        {loading ? <UserPanel/>:
-      <>
-      <h6>Search for patient by name</h6>
-<Form>
-<Form.Control type="text" placeholder="Search patient name" 
-name = 'username' value  = {username} onChange = {onChange} autoComplete = "on"/>
-</Form>
-<div className = "fetchedUser" >
-  {userDetails.map(user => (
-<div style={{padding:"10px 0px 10px 10px"}} onClick={getUserPanel} key={user.person}>
-  <span style={{color:'white',Height:"5vh",fontWeight:"bolder", fontSize:'23px'}}>Patient Details</span>
-<span style={{color:'white'}}><h6 style={{fontSize:"16px"}}>Name: <span style={{fontWeight:"300"}}>{user.person.display}</span></h6> </span>
-<span style={{color:'white'}}> <h6  style={{fontSize:"16px"}} >BirthDate: <span style={{fontWeight:"300"}}>{user.person.birthdate}</span></h6></span>
-<span style={{color:'white'}}><h6 style={{fontSize:"16px"}} >Gender: <span style={{fontWeight:"300"}}>{user.person.gender}</span></h6> </span>
+<div>{loggedIn ? <>{loading ? <UserPanel/>:
+  <>
+    <h6>Search for patient by name</h6>
+      <Form>
+        <Form.Control type="text" placeholder="Search patient name" 
+          name = 'username' value  = {username} onChange = {onChange} autoComplete = "on"/>
+        </Form>
+      <div className = "fetchedUser" >
+    {userDetails.map(user => (
+  <div style={{padding:"10px 0px 10px 10px"}} onClick={getUserPanel} key={user.person}>
+    <span style={{color:'white',Height:"5vh",fontWeight:"bolder", fontSize:'23px'}}>Patient Details</span>
+      <span style={{color:'white'}}>
+        <h6 style={{fontSize:"16px"}}>Name: <span style={{fontWeight:"300"}}>{user.person.display}</span></h6> </span>
+        <span style={{color:'white'}}> 
+        <h6  style={{fontSize:"16px"}} >BirthDate: <span style={{fontWeight:"300"}}>{user.person.birthdate}</span>
+        </h6></span>
+        <span style={{color:'white'}}>
+          <h6 style={{fontSize:"16px"}} >Gender: <span style={{fontWeight:"300"}}>{user.person.gender}</span></h6> </span>
+    </div>),)}
+    </div>
+</>
+}</>:<Login/>}
 </div>
-),
 )}
-</div>
-</>}
-      </>:<Login/>}
-
-</div>
-)
-}
-
 export default SearchPatient
