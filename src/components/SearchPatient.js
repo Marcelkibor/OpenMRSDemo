@@ -9,6 +9,8 @@ const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"))
 const [FormData,SetFormData] = useState({
   username:'',
 })
+const[visit,setVisit] = useState([])
+const [v_initialize,is_v_initialized] = useState(false)
 const[userDetails,setUserDetails] = useState([])
 const [loggedIn,isLoggedIn]= useState(window.localStorage.getItem("JSESSIONID")||false);
 const [loading,isLoading] = useState(false);
@@ -31,16 +33,34 @@ useEffect(()=>{
       // body:raw,
       redirect: 'follow',
       }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-      // console.log(requestBody)
+      //user detail results
       setUserDetails(requestBody.results)
-      console.log(userDetails)
       },)
+      //visits fetching     
+        fetch("/openmrs/ws/rest/v1/visit?patient="+JSON.parse(window.localStorage.getItem("UUID")),{
+        headers:{
+        "Content-Type":"application/json",
+        'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
+        "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
+        },
+        credentials:"same-origin",
+        method:"get",
+        // body:raw,
+        redirect: 'follow',
+        }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
+        setVisit(requestBody.results)
+          console.log("visit array",visit)
+          window.localStorage.setItem("VISIT",JSON.stringify(visit))
+        },)
   }
   else{
     window.localStorage.removeItem("UUID")
     window.localStorage.removeItem("NM")
     window.localStorage.removeItem("GN")
     window.localStorage.removeItem("BT")
+    window.localStorage.removeItem("VSID")
+    window.localStorage.removeItem("VSD")
+    window.localStorage.removeItem("VISIT")
   }
 
 },[username])
@@ -72,7 +92,8 @@ isLoading(true)
         <span style={{color:'white'}}>
           <h6 style={{fontSize:"16px"}} >Gender: <span style={{fontWeight:"300"}}>{user.person.gender}</span></h6> </span>
     </div>),)}
-    </div>
+
+   </div>
 </>
 }</>:<Login/>}
 </div>
