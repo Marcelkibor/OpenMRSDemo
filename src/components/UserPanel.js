@@ -1,50 +1,86 @@
 import React, { useEffect, useState } from 'react'
 import Login from './Login';
 import SearchPatient from './SearchPatient';
+import { ClipLoader } from 'react-spinners'
+
 function UserPanel(){
-  const[visitArray,setVisitArray] = useState(JSON.parse(window.localStorage.getItem("VISIT")||false));
-  const[vitalArray,setVitalArray] = useState(JSON.parse(window.localStorage.getItem("VITALS")||false));
-    const [loggedIn,isLoggedIn]= useState(window.localStorage.getItem("JSESSIONID")||false);
-    const pID = JSON.parse(window.localStorage.getItem("UUID"))
-    const NM = JSON.parse(window.localStorage.getItem("NM"))
-    const GN = JSON.parse(window.localStorage.getItem("GN"))
-    const BT = JSON.parse(window.localStorage.getItem("BT"))
-      // var raw = JSON.stringify({"patient":"aaa70db6-f60a-4f71-b87f-aa9a60056039","visitType":"b2bd9271-7078-482c-b33f-c7600a9c0521"});
-// console.log(NM,"has the visit",visitArray)
+  const UUID = JSON.parse(window.localStorage.getItem("UUID"));
+  const NM = JSON.parse(window.localStorage.getItem("NM"))
+const GN = JSON.parse(window.localStorage.getItem("GN"))
+const BT = JSON.parse(window.localStorage.getItem("BT"))
+  const [loading,isLoaded] = useState(true)
+  const[visit,setVisit] = useState([])
+const[vitals,setVitals] = useState([])
+  useEffect(()=>{
+    fetch("/openmrs/ws/rest/v1/visit?patient="+UUID,{
+      headers:{
+      "Content-Type":"application/json",
+      'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
+      "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
+      },
+      credentials:"same-origin",
+      method:"get",
+      // body:raw,
+      redirect: 'follow',
+      }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
+        // console.log("visits ",requestBody.results)
+        setVisit(requestBody.results)
+      },)
+      //vitals fetching
+      fetch("openmrs/ws/rest/v1/obs?patient="+UUID+"&limit=1",{
+        headers:{
+        "Content-Type":"application/json",
+        'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
+        "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
+        },
+        credentials:"same-origin",
+        method:"get",
+        
+        redirect: 'follow',
+        }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
+          // console.log("vitals",requestBody.results)
+          setVitals(requestBody.results)
+          isLoaded(false)         
+          // is_v_initialized(true)
+          // console.log(vitals)
+        })
+  },[UUID])
+
       return (
-    <div style={{height:"130vh"}}>
-      
-        {loggedIn ? <>
-          <div className='patientDetails'>
-          <span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Patient:</span><br></br>
-            <span>Name: {NM}</span><br></br>
-            <span>Gender: {GN}</span><br></br>
-            <span>BirthDate: {BT}</span><br></br>
-            </div>
-                <div className='patientVisits'>
-                <span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Visits:</span><br></br>
-                  {visitArray.map(vt=>(
-                    <>
-                    <span >
-                      Visit ID: <br></br><>{vt.uuid}</>
-                    </span><br></br>
-                    <span >
-                      Description:<br></br>{vt.display}
-                    </span>
-                    </>
-                  ))}
-                </div>           
-            <div className='patientVitals'>
+     <div className = "fetchedUser">
+      {loading ? <ClipLoader color='white'
+size={120}/>:<>
+<div className = "fetchedUser">
+<span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Patient:</span><br></br>
+            <span style={{color:'white'}}>Name: {NM}</span><br></br>
+            <span style={{color:'white'}} >Gender: {GN}</span><br></br>
+            <span style={{color:'white'}}>BirthDate: {BT}</span><br></br>
+</div>
+
+    <div className='patientVisits'>
+        <span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Visits:</span><br></br>
+          {visit.map(vt=>(
+            <>
+            <span >
+              Visit ID: <br></br><>{vt.uuid}</>
+            </span><br></br>
+            <span >
+              Description:<br></br>{vt.display}
+            </span>
+            </>
+          ))}
+        </div> 
+         <div className='patientVitals'>
             <span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Vitals:</span>
-              {vitalArray.map(vs=>(
+              {vitals.map(vs=>(
                 <div>
                   {vs.display}
                 </div>
               ))}
               
             </div>
-        </>:<Login/>}
-      </div>
-  )
-}
+
+</>}
+     </div>
+      )}
 export default UserPanel
