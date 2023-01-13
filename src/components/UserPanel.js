@@ -1,19 +1,22 @@
 import React, { useEffect, useState } from 'react'
 import Login from './Login';
-
 function UserPanel(){
+  const[userD,getUserD] = useState([])
     const [loggedIn,isLoggedIn]= useState(window.localStorage.getItem("JSESSIONID")||false);
-  return (
+    const pID = JSON.parse(window.localStorage.getItem("UUID"))
+    const NM = JSON.parse(window.localStorage.getItem("NM"))
+    const GN = JSON.parse(window.localStorage.getItem("GN"))
+    const BT = JSON.parse(window.localStorage.getItem("BT"))
+    return (
     <div style={{height:"130vh"}}>
         {loggedIn ? <>
           <div className='patientDetails'>
-            <br></br>
-            <span style={{fontWeight:"bold"}}>Name: <span style={{fontWeight:"400"}}>Marcel Omwanga</span></span> <br></br>
-            <span style={{fontWeight:"bold"}}>BirthDate: <span style={{fontWeight:"400"}}>12/12/20</span></span><br></br>
-            <span style={{fontWeight:"bold"}}>Gender: <span style={{fontWeight:"400"}}>M</span></span><br></br>
-            <span style={{fontWeight:"bold"}}>Uuid: <span style={{fontWeight:"400"}}>12345</span></span>
+            <span>Name: {NM}</span><br></br>
+            <span>Gender: {GN}</span><br></br>
+            <span>BirthDate: {BT}</span><br></br>
             </div>
             <div className='patientVisits'>
+              
               <span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Visits</span>
             </div>
             <div className='patientVitals'>

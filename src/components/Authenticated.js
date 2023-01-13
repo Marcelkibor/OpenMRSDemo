@@ -18,6 +18,11 @@ redirect: 'follow'
 //if successful, destroy the btoa and session id
 .then(window.localStorage.removeItem("JSESSIONID"))
 .then(window.localStorage.removeItem("BTOA"))
+.then(window.localStorage.removeItem("BT"))
+.then(window.localStorage.removeItem("GN"))
+.then(window.localStorage.removeItem("NM"))
+.then(window.localStorage.removeItem("UUID"))
+
 .then(isLoggedOut(true))
 .catch(error => console.log('error', error));
 };

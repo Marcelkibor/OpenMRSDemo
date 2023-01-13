@@ -36,8 +36,11 @@ useEffect(()=>{
       console.log(userDetails)
       },)
   }
-  if(username.trim().length==0){
+  else{
     window.localStorage.removeItem("UUID")
+    window.localStorage.removeItem("NM")
+    window.localStorage.removeItem("GN")
+    window.localStorage.removeItem("BT")
   }
 
 },[username])
@@ -57,8 +60,12 @@ isLoading(true)
   <div style={{padding:"10px 0px 10px 10px"}} href="/panel" onClick={getUserPanel} key={user.person}>
     <span style={{color:'white',Height:"5vh",fontWeight:"bolder", fontSize:'23px'}}>Patient Details</span>
       <span style={{color:'white'}}>
-        <h6 style={{fontSize:"16px"}}>Name: <span style={{fontWeight:"300"}}>{user.person.display}{window.localStorage.setItem("UUID",JSON.stringify(user.person.uuid))
-}</span></h6> </span>
+        <h6 style={{fontSize:"16px"}}>Name: <span style={{fontWeight:"300"}}>{user.person.display}
+        {window.localStorage.setItem("UUID",JSON.stringify(user.person.uuid))}
+        {window.localStorage.setItem("NM",JSON.stringify(user.person.display))}
+        {window.localStorage.setItem("BT",JSON.stringify(user.person.birthdate))}
+        {window.localStorage.setItem("GN",JSON.stringify(user.person.gender))}
+</span></h6> </span>
         <span style={{color:'white'}}> 
         <h6  style={{fontSize:"16px"}} >BirthDate: <span style={{fontWeight:"300"}}>{user.person.birthdate}</span>
         </h6></span>
