@@ -45,7 +45,7 @@ name = 'password' value  = {password} onChange = {onChange} autoComplete = "on"/
 </Form>
 <Button
 onClick={gotEmail}
-variant = "success"
+variant = "primary"
 >
 Login
 </Button>

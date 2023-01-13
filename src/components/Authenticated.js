@@ -22,6 +22,8 @@ redirect: 'follow'
 .then(window.localStorage.removeItem("GN"))
 .then(window.localStorage.removeItem("NM"))
 .then(window.localStorage.removeItem("UUID"))
+.then(window.localStorage.removeItem("VISIT"))
+.then(window.localStorage.removeItem("VITALS"))
 
 .then(isLoggedOut(true))
 .catch(error => console.log('error', error));
