@@ -19,27 +19,33 @@ const onChange = (e)=>{
 SetFormData({...FormData, [e.target.name]:e.target.value})
 }
 useEffect(()=>{
-  fetch("/openmrs/ws/rest/v1/patient?q="+username+"&v=default&limit=1",{
-    headers:{
-    "Content-Type":"application/json;charset=UTF-8",
-    'Authorization': 'Basic '+getBtoa,
-    "Cookie": "JSESSIONID="+getSession, 
-    },
-    credentials:"same-origin",
-    method:"get",
-    // body:raw,
-    redirect: 'follow',
-    }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-    // console.log(requestBody)
-    setUserDetails(requestBody.results)
-    console.log(userDetails)
-    },)
+  if(username.trim().length!==0){
+    fetch("/openmrs/ws/rest/v1/patient?q="+username+"&v=default&limit=1",{
+      headers:{
+      "Content-Type":"application/json;charset=UTF-8",
+      'Authorization': 'Basic '+getBtoa,
+      "Cookie": "JSESSIONID="+getSession, 
+      },
+      credentials:"same-origin",
+      method:"get",
+      // body:raw,
+      redirect: 'follow',
+      }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
+      // console.log(requestBody)
+      setUserDetails(requestBody.results)
+      console.log(userDetails)
+      },)
+  }
+  if(username.trim().length==0){
+    window.localStorage.removeItem("UUID")
+  }
+
 },[username])
 const getUserPanel=()=>{
 isLoading(true)
 }
   return (
-<div>{loggedIn ? <>{loading ? <UserPanel/>:
+<div> {loggedIn ? <>{loading ? <UserPanel/>:
   <>
     <h6>Search for patient by name</h6>
       <Form>
@@ -51,7 +57,8 @@ isLoading(true)
   <div style={{padding:"10px 0px 10px 10px"}} href="/panel" onClick={getUserPanel} key={user.person}>
     <span style={{color:'white',Height:"5vh",fontWeight:"bolder", fontSize:'23px'}}>Patient Details</span>
       <span style={{color:'white'}}>
-        <h6 style={{fontSize:"16px"}}>Name: <span style={{fontWeight:"300"}}>{user.person.display}</span></h6> </span>
+        <h6 style={{fontSize:"16px"}}>Name: <span style={{fontWeight:"300"}}>{user.person.display}{window.localStorage.setItem("UUID",JSON.stringify(user.person.uuid))
+}</span></h6> </span>
         <span style={{color:'white'}}> 
         <h6  style={{fontSize:"16px"}} >BirthDate: <span style={{fontWeight:"300"}}>{user.person.birthdate}</span>
         </h6></span>

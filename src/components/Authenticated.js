@@ -33,6 +33,9 @@ redirect: 'follow'
 <li>
 <a  href = "/"onClick={logOutSession}>Log Out</a>
 </li>
+<li>
+<a  href = "/test">Testing</a>
+</li>
 </ul>
 </>
 </>}

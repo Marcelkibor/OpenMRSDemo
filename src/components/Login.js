@@ -13,27 +13,25 @@ const onChange = (e)=>{
 SetFormData({...FormData, [e.target.name]:e.target.value})
 }
   const gotEmail=(e)=>{ 
-    if(username.trim().length==0||password.trim().length==0){
-alert("Fill in form details!")
-    }
-    else{
-      e.preventDefault();
-      fetch("openmrs/ws/rest/v1/session",{
-      headers:{
-      "Content-Type":"application/x-javascript;charset=UTF-8",
-      'Authorization': 'Basic '+btoa(username+":"+password), 
-      },
-      method:"GET",
-      redirect: 'follow'
-      }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-      window.localStorage.setItem("JSESSIONID",JSON.stringify(requestBody.sessionId));
-      window.localStorage.setItem("BTOA",JSON.stringify(btoa(username+":"+password)));
-      setauthenticated(!authenticated);
+    if(username.trim().length!==0 && password.trim().length!==0){
+e.preventDefault();
+fetch("openmrs/ws/rest/v1/session",{
+headers:{
+"Content-Type":"application/x-javascript;charset=UTF-8",
+'Authorization': 'Basic '+btoa(username+":"+password), 
+},
+method:"GET",
+redirect: 'follow'
+}).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
+window.localStorage.setItem("JSESSIONID",JSON.stringify(requestBody.sessionId));
+window.localStorage.setItem("BTOA",JSON.stringify(btoa(username+":"+password)));
+setauthenticated(!authenticated);
 console.log(requestBody)
-      },)
-    }
- 
-  }
+},)
+}
+else{
+      alert("Fill in form details!")
+  }}
   return (
     <div>
       {authenticated ? <Authenticated/>:<>
