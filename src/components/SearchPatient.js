@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { ClipLoader } from 'react-spinners'
 import { Navigate } from 'react-router-dom'
 import UserPanel from './UserPanel'
+import Login from './Login'
 function SearchPatient (){
 const getSession = JSON.parse(window.localStorage.getItem("JSESSIONID"))
 const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"))
@@ -61,8 +62,9 @@ useEffect(()=>{
 // isLoading(true)
 // }
   return (
-<div> 
-{userPanel ? <UserPanel/>:
+<div>
+  {loggedIn ? <>
+    {userPanel ? <UserPanel/>:
 <>
 <h6>Search for patient by name</h6>
       <Form>
@@ -103,6 +105,8 @@ size={120}
    </div>
 </>
 }
+  </>:<Login/>} 
+
 
 </div>
 )}
