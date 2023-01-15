@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import Login from './Login';
 import SearchPatient from './SearchPatient';
 import { ClipLoader } from 'react-spinners'
+import Visits from './Visits';
+import Pagination from './Pagination';
 
 function UserPanel(){
   const UUID = JSON.parse(window.localStorage.getItem("UUID"));
@@ -11,8 +13,10 @@ const BT = JSON.parse(window.localStorage.getItem("BT"))
   const [loading,isLoaded] = useState(true)
   const[visit,setVisit] = useState([])
 const[vitals,setVitals] = useState([])
+const [currentPage,setCurrentPage]=useState(1)
+const [postPerPage]=useState(1)
   useEffect(()=>{
-    fetch("/openmrs/ws/rest/v1/visit?patient="+UUID,{
+    fetch("/openmrs/ws/rest/v1/encounter?patient="+UUID,{
       headers:{
       "Content-Type":"application/json",
       'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
@@ -38,13 +42,17 @@ const[vitals,setVitals] = useState([])
         
         redirect: 'follow',
         }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-          // console.log("vitals",requestBody.results)
+          console.log("vitals",requestBody.results)
           setVitals(requestBody.results)
           isLoaded(false)         
           // is_v_initialized(true)
           // console.log(vitals)
         })
   },[UUID])
+const lastPostIndex = currentPage * postPerPage
+const firstPostIndex = lastPostIndex - postPerPage
+const currentPosts = visit.slice(firstPostIndex,lastPostIndex)
+const paginate = pageNumber =>setCurrentPage(pageNumber);
 
       return (
      <div className = "fetchedUser">
@@ -56,21 +64,10 @@ size={120}/>:<>
             <span style={{color:'white'}} >Gender: {GN}</span><br></br>
             <span style={{color:'white'}}>BirthDate: {BT}</span><br></br>
 </div>
-
-    <div className='patientVisits'>
-        <span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Visits:</span><br></br>
-          {visit.map(vt=>(
-            <>
-            <span >
-              Visit ID: <br></br><>{vt.uuid}</>
-            </span><br></br>
-            <span >
-              Description:<br></br>{vt.display}
-            </span>
-            </>
-          ))}
-        </div> 
-         <div className='patientVitals'>
+<Visits visits={currentPosts} loading={loading}/>
+  <Pagination paginate={paginate} postPerPage={postPerPage} totalPosts={visit.length}/>   
+     
+         {/* <div className='patientVitals'>
             <span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Vitals:</span>
               {vitals.map(vs=>(
                 <div>
@@ -78,7 +75,7 @@ size={120}/>:<>
                 </div>
               ))}
               
-            </div>
+            </div> */}
 
 </>}
      </div>

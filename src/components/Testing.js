@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 
 function Testing() {
   //visit type uuid->b2bd9271-7078-482c-b33f-c7600a9c0521
@@ -11,27 +11,49 @@ function Testing() {
   // location->Amani Ward->aff27d58-a15c-49a6-9beb-d30dcfc0c66e
   // provider role as organizational doctor->c892c9aa-9490-4c45-b836-eb061nk6a09415
   //created encounters with ids ->6cbdc937-4cd4-4be2-ac55-a720bfdac9a0,6b5c4f05-255e-4149-9d29-dd7dd5ab9c82
-    useEffect(()=>{
-      //this creates a vital for weight
-      // var raw = JSON.stringify({"person":"aaa70db6-f60a-4f71-b87f-aa9a60056039","encounter":"6b5c4f05-255e-4149-9d29-dd7dd5ab9c82","concept":"5089AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA","obsDatetime":"2017-11-14T07:37:31.000+0000","value":90});
+  //visit uuid for mrc->c4feda70-ca27-4e7d-afb2-75c1b2686bc6
+  //facility visit uid->7b0f5697-27e3-40c4-8bae-f4049abfb4ed
+  const[testdata,setTestData] = useState([]||false)
+  useEffect(()=>{
+    //this creates a vital for weight
+    var raw = JSON.stringify({
+    "encounterDatetime":"2015-02-25T06:08:25.000+0000",
+    "patient":"66d5327e-3b09-4edc-8aae-5291eb9707d5",
+    "encounterType":"67a71486-1a54-468f-ac3e-7091a9a79584",
+    "location":"2fd2ec64-a13a-4065-a43e-691c89330014",
+    "visit":{"patient":"66d5327e-3b09-4edc-8aae-5291eb9707d5",
+    "visitType":"7b0f5697-27e3-40c4-8bae-f4049abfb4ed",
+  "startDatetime":"2015-02-25T06:08:25.000+0000"
+  }
+    });
 
-      fetch("openmrs/ws/rest/v1/obs?patient=aaaa70db6-f60a-4f71-b87f-aa9a60056039&limit=1",{
-            headers:{
-            "Content-Type":"application/json",
-            'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
-            "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
-            },
-            credentials:"same-origin",
-            method:"get",
-            
-            redirect: 'follow',
-            }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-            console.log(requestBody)
-            },)
-    })
+    fetch("/openmrs/ws/rest/v1/encounter?patient=66d5327e-3b09-4edc-8aae-5291eb9707d5",{
+          headers:{
+          "Content-Type":"application/json",
+          'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
+          "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
+          },
+          credentials:"same-origin",
+          method:"get",
+          // body:raw,            
+          redirect: 'follow',
+          }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
+          console.log(requestBody.results)
+          setTestData(requestBody.results)
+          },)
+  },[])
 
   return (
-    <div>Testing</div>
+    <div>
+      {testdata?
+      <div>
+{testdata.map(ts=><div><span style={{color:'gray'}}>{ts.display}</span></div>)}
+      </div>:<>
+      <h6>
+        Waiting for results
+      </h6>
+      </>}
+    </div>
   )
 }
 // list encounters ->encounter?patient=96be32d2-9367-4d1d-a285-79a5e5db12b8&concept=18316c68-b5f9-4986-b76d-9975cd0ebe31&fromdate=2016-10-08&v=default&limit=1", requestOptions)

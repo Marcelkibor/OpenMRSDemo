@@ -42,6 +42,7 @@ useEffect(()=>{
       redirect: 'follow',
       }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
       //user detail results
+      console.log(requestBody)
       setUserDetails(requestBody.results)
       isLoaded(false)
       },)
