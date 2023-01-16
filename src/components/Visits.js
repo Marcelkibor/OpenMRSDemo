@@ -1,18 +1,18 @@
 import React from 'react'
 
-const Visits = ({visits,loading}) => {
+const Visits = ({visits,loading,onClick}) => {
   return (
     <div>
      <div className='patientVisits'>
-        <span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Visits:</span><br></br>
+        <h5>Visits:</h5>
           {visits.map(vt=>(
             <>
-            <span >
-              Visit ID: <br></br><>{vt.uuid}</>
+            <span>
+              Location: <>{vt.location.display}</>
             </span><br></br>
-            <span >
-              Description:<br></br>{vt.display}
-            </span>
+            <span>
+              DateTime: <>{vt. encounterDatetime}</>
+            </span><br></br>
             </>
           ))}
         </div> 

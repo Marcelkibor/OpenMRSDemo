@@ -16,18 +16,13 @@ function Testing() {
   const[testdata,setTestData] = useState([]||false)
   useEffect(()=>{
     //this creates a vital for weight
-    var raw = JSON.stringify({
-    "encounterDatetime":"2015-02-25T06:08:25.000+0000",
-    "patient":"66d5327e-3b09-4edc-8aae-5291eb9707d5",
-    "encounterType":"67a71486-1a54-468f-ac3e-7091a9a79584",
-    "location":"2fd2ec64-a13a-4065-a43e-691c89330014",
-    "visit":{"patient":"66d5327e-3b09-4edc-8aae-5291eb9707d5",
-    "visitType":"7b0f5697-27e3-40c4-8bae-f4049abfb4ed",
-  "startDatetime":"2015-02-25T06:08:25.000+0000"
-  }
-    });
+    // var raw = JSON.stringify({"patient":"aaa70db6-f60a-4f71-b87f-aa9a60056039",
+    // "visitType":"7b0f5697-27e3-40c4-8bae-f4049abfb4ed",
+    // "startDatetime":"2016-10-08T04:09:25.000Z",
+    // "location":"aff27d58-a15c-49a6-9beb-d30dcfc0c66e",
+    // "encounters":["6b5c4f05-255e-4149-9d29-dd7dd5ab9c82"]});
 
-    fetch("/openmrs/ws/rest/v1/encounter?patient=66d5327e-3b09-4edc-8aae-5291eb9707d5",{
+    fetch("/openmrs/ws/rest/v1/concept",{
           headers:{
           "Content-Type":"application/json",
           'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
@@ -38,21 +33,13 @@ function Testing() {
           // body:raw,            
           redirect: 'follow',
           }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-          console.log(requestBody.results)
-          setTestData(requestBody.results)
+          console.log(requestBody)
           },)
   },[])
 
   return (
     <div>
-      {testdata?
-      <div>
-{testdata.map(ts=><div><span style={{color:'gray'}}>{ts.display}</span></div>)}
-      </div>:<>
-      <h6>
-        Waiting for results
-      </h6>
-      </>}
+      Testing
     </div>
   )
 }
