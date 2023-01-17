@@ -20,47 +20,26 @@ function Testing() {
   // const[testdata,setTestData] = useState([]||false)
   // useEffect(()=>{
     //this creates a vital for weight
-    // var raw = JSON.stringify({"patient":"aaa70db6-f60a-4f71-b87f-aa9a60056039",
-    // "visitType":"7b0f5697-27e3-40c4-8bae-f4049abfb4ed",
-    // "startDatetime":"2016-10-08T04:09:25.000Z",
-    // "location":"aff27d58-a15c-49a6-9beb-d30dcfc0c66e",
-    // "encounters":["6b5c4f05-255e-4149-9d29-dd7dd5ab9c82"]});
-
-  //   fetch("/openmrs/ws/rest/v1/concept",{
-  //         headers:{
-  //         "Content-Type":"application/json",
-  //         'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
-  //         "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
-  //         },
-  //         credentials:"same-origin",
-  //         method:"get",
-  //         // body:raw,            
-  //         redirect: 'follow',
-  //         }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-  //         console.log(requestBody)
-  //         },)
-  // },[])
-  const UUID = JSON.parse(window.localStorage.getItem("UUID"))
-  const [visit,setVisit]= useState([])
   useEffect(()=>{
-    fetch("/openmrs/ws/rest/v1/encounter?patient="+UUID+"&concept=18316c68-b5f9-4986-b76d-9975cd0ebe31&fromdate=2016-10-08&v=default",{
+    var raw = JSON.stringify({"visit":"75e16aee-8f47-4036-86b2-7adc4ab1d38c"});
+    fetch("/openmrs/ws/rest/v1/encounter/8563b647-eeb8-460e-95ad-4d6b49e2c71d",{
       headers:{
       "Content-Type":"application/json",
       'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
       "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
       },
       credentials:"same-origin",
-      method:"get",
-      // body:raw,
+      method:"post",
+      body:raw,
       redirect: 'follow',
       }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-        setVisit(requestBody.results)
+      
         console.log(requestBody)
       },)
-  },[UUID])
+  },[])
   return (
     <div>
-   {console.log(visit)}
+
 {/* <Accordion>
   {visit.map(item => (
     <><AccordionSummary>

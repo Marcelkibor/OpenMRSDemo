@@ -30,7 +30,7 @@ const [postPerPage]=useState(2)
       }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
         setVisit(requestBody.results)
         isLoaded(false) 
-        console.log(requestBody)
+        // console.log(requestBody)
       },)
       //vitals fetching
       // fetch("openmrs/ws/rest/v1/obs?patient="+UUID+"&limit=1",{
