@@ -15,9 +15,9 @@ const BT = JSON.parse(window.localStorage.getItem("BT"))
   const[visit,setVisit] = useState([])
 const[vitals,setVitals] = useState([])
 const [currentPage,setCurrentPage]=useState(1)
-const [postPerPage]=useState(1)
+const [postPerPage]=useState(2)
   useEffect(()=>{
-    fetch("/openmrs/ws/rest/v1/encounter?patient="+UUID+"&concept=18316c68-b5f9-4986-b76d-9975cd0ebe31&fromdate=2016-10-08&v=default",{
+    fetch("/openmrs/ws/rest/v1/visit?patient="+UUID+"&concept=18316c68-b5f9-4986-b76d-9975cd0ebe31&fromdate=2016-10-08&v=default",{
       headers:{
       "Content-Type":"application/json",
       'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
@@ -66,9 +66,9 @@ size={120}/>:<>
             <span style={{color:'white'}} >Gender: {GN}</span><br></br>
             <span style={{color:'white'}}>BirthDate: {BT}</span><br></br>
 </div>
-<Visits visits={currentPosts} loading={loading} />
-  <Vitals vitals={currentPosts} loading={loading}/>
-  <Pagination paginate={paginate} postPerPage={postPerPage} totalPosts={visit.length}/>   
+<Visits visits={visit} loading={loading} />
+{/* <Pagination paginate={paginate} postPerPage={postPerPage} totalPosts={visit.length}/>    */}
+  {/* <Vitals vitals={currentPosts} loading={loading}/> */}
 
      
          {/* <div className='patientVitals'>

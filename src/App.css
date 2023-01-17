@@ -34,7 +34,7 @@ animation: slideInUp 3s;
 .patientVisits{
   background-color: rgb(191, 218, 204);
   margin: 5% 5% 0% 5% !important;
-  height: 40vh;
+  height: fit-content;
   padding: 1% 3% 3% 3%;
   color:rgb(0, 0, 0);
   border-radius: 10px;

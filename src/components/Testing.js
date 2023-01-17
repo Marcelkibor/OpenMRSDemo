@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from 'react'
-
+import  Accordion  from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import Visits from './Visits';
 function Testing() {
   //visit type uuid->b2bd9271-7078-482c-b33f-c7600a9c0521
   // patient uuid ->66d5327e-3b09-4edc-8aae-5291eb9707d5,aaa70db6-f60a-4f71-b87f-aa9a60056039
@@ -13,8 +17,8 @@ function Testing() {
   //created encounters with ids ->6cbdc937-4cd4-4be2-ac55-a720bfdac9a0,6b5c4f05-255e-4149-9d29-dd7dd5ab9c82
   //visit uuid for mrc->c4feda70-ca27-4e7d-afb2-75c1b2686bc6
   //facility visit uid->7b0f5697-27e3-40c4-8bae-f4049abfb4ed
-  const[testdata,setTestData] = useState([]||false)
-  useEffect(()=>{
+  // const[testdata,setTestData] = useState([]||false)
+  // useEffect(()=>{
     //this creates a vital for weight
     // var raw = JSON.stringify({"patient":"aaa70db6-f60a-4f71-b87f-aa9a60056039",
     // "visitType":"7b0f5697-27e3-40c4-8bae-f4049abfb4ed",
@@ -22,24 +26,50 @@ function Testing() {
     // "location":"aff27d58-a15c-49a6-9beb-d30dcfc0c66e",
     // "encounters":["6b5c4f05-255e-4149-9d29-dd7dd5ab9c82"]});
 
-    fetch("/openmrs/ws/rest/v1/concept",{
-          headers:{
-          "Content-Type":"application/json",
-          'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
-          "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
-          },
-          credentials:"same-origin",
-          method:"get",
-          // body:raw,            
-          redirect: 'follow',
-          }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-          console.log(requestBody)
-          },)
-  },[])
-
+  //   fetch("/openmrs/ws/rest/v1/concept",{
+  //         headers:{
+  //         "Content-Type":"application/json",
+  //         'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
+  //         "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
+  //         },
+  //         credentials:"same-origin",
+  //         method:"get",
+  //         // body:raw,            
+  //         redirect: 'follow',
+  //         }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
+  //         console.log(requestBody)
+  //         },)
+  // },[])
+  const UUID = JSON.parse(window.localStorage.getItem("UUID"))
+  const [visit,setVisit]= useState([])
+  useEffect(()=>{
+    fetch("/openmrs/ws/rest/v1/encounter?patient="+UUID+"&concept=18316c68-b5f9-4986-b76d-9975cd0ebe31&fromdate=2016-10-08&v=default",{
+      headers:{
+      "Content-Type":"application/json",
+      'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
+      "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
+      },
+      credentials:"same-origin",
+      method:"get",
+      // body:raw,
+      redirect: 'follow',
+      }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
+        setVisit(requestBody.results)
+        console.log(requestBody)
+      },)
+  },[UUID])
   return (
     <div>
-      Testing
+   {console.log(visit)}
+{/* <Accordion>
+  {visit.map(item => (
+    <><AccordionSummary>
+      <Typography>{item.uuid}</Typography>
+    </AccordionSummary><AccordionDetails>
+        <Typography>{item.display}</Typography>
+      </AccordionDetails></>
+  ))}
+</Accordion> */}
     </div>
   )
 }
