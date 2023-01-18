@@ -1,9 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import  Accordion  from '@mui/material/Accordion';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import Typography from '@mui/material/Typography';
-import Visits from './Visits';
 function Testing() {
   //visit type uuid->b2bd9271-7078-482c-b33f-c7600a9c0521
   // patient uuid ->66d5327e-3b09-4edc-8aae-5291eb9707d5,aaa70db6-f60a-4f71-b87f-aa9a60056039
@@ -34,9 +29,10 @@ function Testing() {
   //       console.log(requestBody)
   //     },)
   // },[])
+  
   return (
     <div>
     </div>
   )
-}
+  }
 export default Testing

@@ -1,8 +1,7 @@
 import React, { Component, useEffect } from 'react'
-import { Form, Button } from 'react-bootstrap'
+import { Form } from 'react-bootstrap'
 import { useState } from 'react'
 import { ClipLoader } from 'react-spinners'
-import { Navigate } from 'react-router-dom'
 import UserPanel from './UserPanel'
 import Login from './Login'
 function SearchPatient (){

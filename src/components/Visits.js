@@ -7,15 +7,15 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 const Visits = ({visits,loading,onClick}) => {
 const [accordionSummary, setAccordionSummary] = useState(null);
 const [encounters,setEncounters]= useState([]);
-const[observations,setObservations] = useState([])
+const[observations,setObservations] = useState([]);
+const [expanded, setExpanded] = useState(false);
 const UUID = JSON.parse(window.localStorage.getItem("UUID"));
 const getSession = JSON.parse(window.localStorage.getItem("JSESSIONID"))
 const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"));
-  useState(()=>{
-    setObservations([])
-  })
- const handleAccordionSummary = (accordionSummary) => {
+const [open, setOpen] = useState(false);
+ function handleAccordionSummary(accordionSummary,newExpanded){
   setObservations([])
+  window.localStorage.removeItem("OBS")
     setAccordionSummary(accordionSummary);
     fetch("/openmrs/ws/rest/v1/encounter?patient="+UUID+"&concept=18316c68-b5f9-4986-b76d-9975cd0ebe31&fromdate=2016-10-08&v=default&limit=1",{
       headers:{
@@ -37,9 +37,12 @@ const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"));
         if(fetched_visit==accordionSummary){
     //this condition is fault as some encounters have no visits, but have observations but they keeps being appended to the new array
     setObservations(enc.obs)
-        }
-        else{
-          console.log("Not found")}})},)
+    if(observations){
+      window.localStorage.setItem("OBS",JSON.stringify(observations))
+    }
+  }
+    else{
+      console.log("Not found")}})},)
   };
   //if a fetched encounter contains a visit id displayed on the ui,
   // fetch all the observations of this encounter. parameters needed are: patient and encounter uuid
@@ -55,18 +58,19 @@ function getObservations(data){
     <div>
      <div className='patientVisits'>
         <h5>Visits:</h5>
-        <Accordion>
   {visits.map((item,index) => (
-    <span>
-  <AccordionSummary   expandIcon={index === 0 ? <ExpandMoreIcon /> : null} className='visitBorder' onClick={() => handleAccordionSummary(item.uuid)}>
+    <span key={item.uuid}>
+      <Accordion>
+  <AccordionSummary   expandIcon={<ExpandMoreIcon />} className='visitBorder'  onClick={() => handleAccordionSummary(item.uuid)} onChange={() => setOpen(false)}>
       <Typography>{item.uuid}</Typography>
     </AccordionSummary>
-    <AccordionDetails >
+    <AccordionDetails  >
     <Typography>{item.display}</Typography>
     </AccordionDetails>
+    </Accordion>
     </span>
   ))}
-</Accordion>
+
     </div>
       {observations?
         <div className='patientVitals'>
