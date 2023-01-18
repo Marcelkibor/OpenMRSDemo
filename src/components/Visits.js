@@ -88,7 +88,18 @@ function getObservations(data){
         <div className='patientVitals'>
       <h4 style={{color:"white"}}>Vitals:</h4>
       {observations.map(obs=>(
-        <p>{obs.uuid}<br></br>{obs.display}</p> 
+        <span key={obs.uuid}>
+          <Accordion>
+    <AccordionSummary   expandIcon={<ExpandMoreIcon />} >
+      <Typography>{obs.uuid}</Typography>
+    </AccordionSummary>
+          <AccordionDetails  >
+    <Typography>{obs.display}</Typography>
+    </AccordionDetails>
+          </Accordion>
+        </span>
+
+ 
       ))}
       </div>:<></>
       }
