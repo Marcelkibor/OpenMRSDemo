@@ -3,6 +3,7 @@ import  Accordion  from '@mui/material/Accordion';
 import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 
 const Visits = ({visits,loading,onClick}) => {
 const [accordionSummary, setAccordionSummary] = useState(null);
@@ -63,24 +64,30 @@ function getObservations(data){
      <div className='patientVisits'>
         <h5>Visits:</h5>
         <Accordion>
-  {visits.map(item => (
-    <AccordionSummary onClick={() => handleAccordionSummary(item.uuid)}>
+  {visits.map((item,index) => (
+    <span>
+  <AccordionSummary   expandIcon={index === 0 ? <ExpandMoreIcon /> : null} className='visitBorder' onClick={() => handleAccordionSummary(item.uuid)}>
       <Typography>{item.uuid}</Typography>
     </AccordionSummary>
+    <AccordionDetails >
+    <Typography>{item.display}</Typography>
+    </AccordionDetails>
+    </span>
+  
   ))}
 </Accordion>
     </div>
-    <div className='patientVitals'>
-      <h6>Vitals:</h6>
-      {observations? <>
+      {observations?
+        <div className='patientVitals'>
+      <h5>Vitals:</h5>
       {observations.map(obs=>(
-        <p>{obs.uuid}<br></br>{obs.display}</p>
-        
+        <p>{obs.uuid}<br></br>{obs.display}</p> 
       ))}
-      </>:<></>}
+      </div>
+      :
+      <p style={{color:"white"}}>No vitals for this visit</p>
+      }
     </div>
-    </div>
-
   )
 }
 
