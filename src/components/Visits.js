@@ -4,18 +4,19 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { ClipLoader } from 'react-spinners'
 const Visits = ({visits,loading,onClick}) => {
 const [accordionSummary, setAccordionSummary] = useState(null);
 const [encounters,setEncounters]= useState([]);
 const[observations,setObservations] = useState([]);
-const [expanded, setExpanded] = useState(false);
 const UUID = JSON.parse(window.localStorage.getItem("UUID"));
 const getSession = JSON.parse(window.localStorage.getItem("JSESSIONID"))
 const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"));
-const [open, setOpen] = useState(false);
+const [loadingV,setLoadingV] = useState(false)
  function handleAccordionSummary(accordionSummary,newExpanded){
   setObservations([])
   window.localStorage.removeItem("OBS")
+  setLoadingV(true)
     setAccordionSummary(accordionSummary);
     fetch("/openmrs/ws/rest/v1/encounter?patient="+UUID+"&concept=18316c68-b5f9-4986-b76d-9975cd0ebe31&fromdate=2016-10-08&v=default&limit=1",{
       headers:{
@@ -42,7 +43,13 @@ const [open, setOpen] = useState(false);
     }
   }
     else{
-      console.log("Not found")}})},)
+      console.log("Not found")
+    }
+  }
+  )
+  setLoadingV(false)
+}
+)
   };
   //if a fetched encounter contains a visit id displayed on the ui,
   // fetch all the observations of this encounter. parameters needed are: patient and encounter uuid
@@ -57,11 +64,11 @@ function getObservations(data){
   return (
     <div style={{display:"flex"}}>
      <div className='patientVisits'>
-        <h5>Visits:</h5>
+        <h4 style={{color:"white"}}>Visits:</h4>
   {visits.map((item,index) => (
     <span key={item.uuid}>
       <Accordion>
-  <AccordionSummary   expandIcon={<ExpandMoreIcon />} className='visitBorder'  onClick={() => handleAccordionSummary(item.uuid)} onChange={() => setOpen(false)}>
+  <AccordionSummary   expandIcon={<ExpandMoreIcon />} className='visitBorder'  onClick={() => handleAccordionSummary(item.uuid)} >
       <Typography>{item.uuid}</Typography>
     </AccordionSummary>
     <AccordionDetails  >
@@ -72,18 +79,23 @@ function getObservations(data){
   ))}
 
     </div>
-    <div className='patientVitals'>
+    
+      {loadingV ? 
+      <ClipLoader color='white'
+      size={70}/>
+      :<>
       {observations?
-        <div>
-      <h5>Vitals:</h5>
+        <div className='patientVitals'>
+      <h4 style={{color:"white"}}>Vitals:</h4>
       {observations.map(obs=>(
         <p>{obs.uuid}<br></br>{obs.display}</p> 
       ))}
       </div>:<></>
       }
+      </>}
+     
     </div>
 
-    </div>
   )
 }
 export default Visits
