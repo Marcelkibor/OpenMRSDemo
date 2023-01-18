@@ -19,39 +19,24 @@ function Testing() {
   //facility visit uid->7b0f5697-27e3-40c4-8bae-f4049abfb4ed
   // const[testdata,setTestData] = useState([]||false)
   // useEffect(()=>{
-    //this creates a vital for weight
-  useEffect(()=>{
-    var raw = JSON.stringify({"visit":"75e16aee-8f47-4036-86b2-7adc4ab1d38c"});
-    fetch("/openmrs/ws/rest/v1/encounter/8563b647-eeb8-460e-95ad-4d6b49e2c71d",{
-      headers:{
-      "Content-Type":"application/json",
-      'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
-      "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
-      },
-      credentials:"same-origin",
-      method:"post",
-      body:raw,
-      redirect: 'follow',
-      }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-      
-        console.log(requestBody)
-      },)
-  },[])
+  //   var raw = JSON.stringify({"visit":"75e16aee-8f47-4036-86b2-7adc4ab1d38c"});
+  //   fetch("/openmrs/ws/rest/v1/encounter/8563b647-eeb8-460e-95ad-4d6b49e2c71d",{
+  //     headers:{
+  //     "Content-Type":"application/json",
+  //     'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
+  //     "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
+  //     },
+  //     credentials:"same-origin",
+  //     method:"post",
+  //     body:raw,
+  //     redirect: 'follow',
+  //     }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
+  //       console.log(requestBody)
+  //     },)
+  // },[])
   return (
     <div>
-
-{/* <Accordion>
-  {visit.map(item => (
-    <><AccordionSummary>
-      <Typography>{item.uuid}</Typography>
-    </AccordionSummary><AccordionDetails>
-        <Typography>{item.display}</Typography>
-      </AccordionDetails></>
-  ))}
-</Accordion> */}
     </div>
   )
 }
-// list encounters ->encounter?patient=96be32d2-9367-4d1d-a285-79a5e5db12b8&concept=18316c68-b5f9-4986-b76d-9975cd0ebe31&fromdate=2016-10-08&v=default&limit=1", requestOptions)
-// list observation ->/openmrs/ws/rest/v1/obs?patient=070f0120-0283-4858-885d-a20d967729cf&limit=1
 export default Testing

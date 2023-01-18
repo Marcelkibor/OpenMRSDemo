@@ -4,7 +4,6 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-
 const Visits = ({visits,loading,onClick}) => {
 const [accordionSummary, setAccordionSummary] = useState(null);
 const [encounters,setEncounters]= useState([]);
@@ -12,7 +11,6 @@ const[observations,setObservations] = useState([])
 const UUID = JSON.parse(window.localStorage.getItem("UUID"));
 const getSession = JSON.parse(window.localStorage.getItem("JSESSIONID"))
 const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"));
-  //fetch all encounters to co
   useState(()=>{
     setObservations([])
   })
@@ -30,8 +28,6 @@ const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"));
        // body:raw,
        redirect: 'follow',
        }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-       //user detail results
-      //  console.log(requestBody.results)
        setEncounters(requestBody.results)
        encounters.map(enc=>{
         var fetched_visit;
@@ -39,15 +35,11 @@ const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"));
         //compare if the displayed visit is contained in the fetched encounters visits
         // if the visit uid is same as that from the encounters, save all observations
         if(fetched_visit==accordionSummary){
-    // checkConditions(enc.uuid)
     //this condition is fault as some encounters have no visits, but have observations but they keeps being appended to the new array
     setObservations(enc.obs)
         }
         else{
-          console.log("Not found")
-        }
-       })
-       },)
+          console.log("Not found")}})},)
   };
   //if a fetched encounter contains a visit id displayed on the ui,
   // fetch all the observations of this encounter. parameters needed are: patient and encounter uuid
@@ -73,7 +65,6 @@ function getObservations(data){
     <Typography>{item.display}</Typography>
     </AccordionDetails>
     </span>
-  
   ))}
 </Accordion>
     </div>
@@ -83,12 +74,9 @@ function getObservations(data){
       {observations.map(obs=>(
         <p>{obs.uuid}<br></br>{obs.display}</p> 
       ))}
-      </div>
-      :
-      <p style={{color:"white"}}>No vitals for this visit</p>
+      </div>:<p style={{color:"white"}}>No vitals for this visit</p>
       }
     </div>
   )
 }
-
 export default Visits

@@ -25,31 +25,11 @@ const [postPerPage]=useState(2)
       },
       credentials:"same-origin",
       method:"get",
-      // body:raw,
       redirect: 'follow',
       }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
         setVisit(requestBody.results)
         isLoaded(false) 
-        // console.log(requestBody)
       },)
-      //vitals fetching
-      // fetch("openmrs/ws/rest/v1/obs?patient="+UUID+"&limit=1",{
-      //   headers:{
-      //   "Content-Type":"application/json",
-      //   'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
-      //   "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
-      //   },
-      //   credentials:"same-origin",
-      //   method:"get",
-        
-      //   redirect: 'follow',
-      //   }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-      //     console.log("vitals",requestBody.results)
-      //     setVitals(requestBody.results)
-      //     isLoaded(false)         
-      //     // is_v_initialized(true)
-      //     // console.log(vitals)
-      //   })
   },[UUID])
 
 const lastPostIndex = currentPage * postPerPage
@@ -69,17 +49,6 @@ size={120}/>:<>
 <Visits visits={visit} loading={loading} />
 {/* <Pagination paginate={paginate} postPerPage={postPerPage} totalPosts={visit.length}/>    */}
   {/* <Vitals vitals={currentPosts} loading={loading}/> */}
-
-     
-         {/* <div className='patientVitals'>
-            <span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Vitals:</span>
-              {vitals.map(vs=>(
-                <div>
-                  {vs.display}
-                </div>
-              ))}
-              
-            </div> */}
 
 </>}
      </div>

@@ -12,9 +12,6 @@ const [userPanel,setUserPanel] = useState(false)
 const [FormData,SetFormData] = useState({
   username:'',
 })
-
-//this state controls rendering of the div containing names.
-//if visits are not initialized, dont display the fetchedUser div, otherwise true. 
 const[userDetails,setUserDetails] = useState([])
 const [loggedIn,isLoggedIn]= useState(window.localStorage.getItem("JSESSIONID")||false);
 //is loading is a state that determines if the div with fetched results has been clicked.
@@ -38,29 +35,15 @@ useEffect(()=>{
       },
       credentials:"same-origin",
       method:"get",
-      // body:raw,
       redirect: 'follow',
       }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-      //user detail results
       setUserDetails(requestBody.results)
       isLoaded(false)
-      },)
-   
-  }
+      },)}
   if(username.trim.length<3){
     setUserDetails([])
-    // window.localStorage.removeItem("UUID")
-    // window.localStorage.removeItem("NM")
-    // window.localStorage.removeItem("GN")
-    // window.localStorage.removeItem("BT")
-    // window.localStorage.removeItem("VISIT")
-    // window.localStorage.removeItem("VITALS")
   }
-
 },[username])
-// const getUserPanel=()=>{
-// isLoading(true)
-// }
   return (
 <div>
   {loggedIn ? <>
@@ -72,15 +55,7 @@ useEffect(()=>{
           name = 'username' value  = {username} onChange = {onChange} autoComplete = "on"/>
         </Form>
         <div className = "fetchedUser">
-{loaded ? 
-<ClipLoader
-color='white'
-size={120}
-/>
-:
-<>
-{userDetails ?<>
-{userDetails.map(user => (
+{loaded ? <ClipLoader color='white' size={120} />:<>{userDetails ?<>{userDetails.map(user => (
   <div onClick={goPanel} style={{padding:"10px 0px 10px 10px"}}   key={user.person}>
     <span style={{color:'white',Height:"5vh",fontWeight:"bolder", fontSize:'23px'}}>Patient Details</span>
       <span style={{color:'white'}}>
@@ -95,19 +70,12 @@ size={120}
         </h6></span>
         <span style={{color:'white'}}>
           <h6 style={{fontSize:"16px"}} >Gender: <span style={{fontWeight:"300"}}>{user.person.gender}</span></h6> </span>
-    </div>),)}
-</>:
-<>
-</>
-}</>
+    </div>),)}</>:<></>}</>
 }
-    
-   </div>
+</div>
 </>
 }
   </>:<Login/>} 
-
-
 </div>
 )}
 export default SearchPatient
