@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react'
-import Login from './Login';
-import SearchPatient from './SearchPatient';
 import { ClipLoader } from 'react-spinners'
 import Visits from './Visits';
-import Pagination from './Pagination';
-import Vitals from './Vitals';
+import PersonIcon from '@mui/icons-material/Person';
+
 
 function UserPanel(){
   const UUID = JSON.parse(window.localStorage.getItem("UUID"));
@@ -40,8 +38,8 @@ const paginate = pageNumber =>setCurrentPage(pageNumber);
      <div className = "fetchedUser">
       {loading ? <ClipLoader color='white'
 size={120}/>:<>
-<div className = "fetchedUser">
-<span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Patient:</span><br></br>
+<div className = "fetchedUser" style={{padding:'5% 10% 0% 0%'}}>
+<span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Patient: <PersonIcon style={{color:'white', fontSize:'30px'}}/></span><br></br>
             <span style={{color:'white'}}>Name: {NM}</span><br></br>
             <span style={{color:'white'}} >Gender: {GN}</span><br></br>
             <span style={{color:'white'}}>BirthDate: {BT}</span><br></br>

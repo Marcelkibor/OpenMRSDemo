@@ -31,8 +31,8 @@ redirect: 'follow'
  return (
 <>
 {logOut ? <Login/>:<>
-<>
-<p>You can perform the following operations:</p>
+<div style={{margin:"2% 0% 0% 2%"}}>
+<h6 style={{fontWeight:"600"}}>You can perform the following operations:</h6>
 <ul>
 <li>
 <a href='/search'> Search Patient</a>
@@ -44,8 +44,10 @@ redirect: 'follow'
 <a  href = "/test">Testing</a>
 </li>
 </ul>
+</div>
+
 </>
-</>}
+}
 </>
   )
 }

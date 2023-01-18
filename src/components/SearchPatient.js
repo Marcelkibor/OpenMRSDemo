@@ -48,11 +48,14 @@ useEffect(()=>{
   {loggedIn ? <>
     {userPanel ? <UserPanel/>:
 <>
-<h6>Search for patient by name</h6>
-      <Form>
-        <Form.Control type="text" placeholder="Search patient name" 
+
+
+<Form>
+        <Form.Control style={{margin:"auto",marginTop:"30px", width:'600px'}} type="text" placeholder="Search Patient By Name" 
           name = 'username' value  = {username} onChange = {onChange} autoComplete = "on"/>
         </Form>
+
+  
         <div className = "fetchedUser">
 {loaded ? <ClipLoader color='white' size={120} />:<>{userDetails ?<>{userDetails.map(user => (
   <div onClick={goPanel} style={{padding:"10px 0px 10px 10px"}}   key={user.person}>

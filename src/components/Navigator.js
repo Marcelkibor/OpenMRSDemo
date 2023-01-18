@@ -3,6 +3,9 @@ import Container from 'react-bootstrap/Container';
 import { useState } from "react";
 import React from 'react'
 import Login from "./Login";
+import SearchIcon from '@mui/icons-material/Search';
+import HomeIcon from '@mui/icons-material/Home';
+import mrs from "../resources/mrs.png"
 function Navigator(){
   const [logOut,isLoggedOut] = useState(false);
 const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"))
@@ -27,13 +30,13 @@ redirect: 'follow'
     <>
 <Navbar className="topNav">
 <Container>
-<Navbar.Brand style={{color:'white'}} href="/">OpenMRS Demo</Navbar.Brand>
+<Navbar.Brand style={{color:'white'}} href="/">   <img className="rounded-image" width={50} height={50} src={mrs} alt="image description"/>&nbsp;&nbsp;&nbsp;OpenMRS Demo</Navbar.Brand>
 <Navbar.Toggle />
 <Navbar.Collapse className="justify-content-end">
 <Container>
           <Nav className="me-auto">
-            <Nav.Link style={{color:'white'}} href="/">Home</Nav.Link>
-            <Nav.Link style={{color:'white'}} href="/search">Search</Nav.Link>
+            <Nav.Link style={{color:'white'}} href="/">Home <HomeIcon  style ={{color:"white", fontSize:'20px'}}/></Nav.Link>
+            <Nav.Link style={{color:'white'}} href="/search">Search <SearchIcon style ={{color:"white", fontSize:'20px'}}/> </Nav.Link>
           </Nav>
         </Container>
 </Navbar.Collapse>

@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate } from 'react-router-dom';
 import Authenticated from './Authenticated';
-import { Form,Button, Alert } from 'react-bootstrap';
+import { Form, Alert } from 'react-bootstrap';
+import Button from './Button';
 import { ClipLoader } from 'react-spinners'
+import { padding } from '@mui/system';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 function Login(){
   const [authenticated, setauthenticated] = useState(JSON.parse(localStorage.getItem("JSESSIONID")|| false));
   const [FormData,SetFormData] = useState({
@@ -50,20 +53,24 @@ isLoading(false)
 color='blue'
 size={60}
 />:<>
-<Form >
-<Form.Label>Username:</Form.Label>&nbsp;
-<Form.Control type="text" placeholder="username" 
+<div style={{margin:'10% 0% 0% 28vw' ,padding:'2% 2% 2% 2%', backgroundColor:"#00b894", maxWidth:'fit-content', borderRadius:'15px'}}>
+  <h6 style={{color:"white",textAlign:'center', fontWeight:'800'}}>Authenticate <AccountBoxIcon style={{color:"white",fontSize:'30px'}}/> </h6>
+<Form>
+<Form.Label style={{fontWeight:'600', color:'white'}}>Username:</Form.Label>&nbsp;
+<Form.Control style={{width:'400px'}} type="text" placeholder="username" 
 name = 'username' value  = {username} onChange = {onChange} autoComplete = "on"/>
-<br></br><Form.Label>Password:</Form.Label>&nbsp;&nbsp;
-<Form.Control type="password" placeholder="******" 
+<br></br><Form.Label style={{fontWeight:'600', color:'white'}}>Password:</Form.Label>&nbsp;&nbsp;
+<Form.Control style={{width:'400px'}} type="password" placeholder="******" 
 name = 'password' value  = {password} onChange = {onChange} autoComplete = "on"/><br></br>
 </Form>
 <Button
 onClick={gotEmail}
-variant = "primary"
+size="20px"  backgroundColor="#6ab04c" color="white" borderRadius = "10px" 
 >
 Login
 </Button>
+</div>
+
 </>}
 </>}    
   </div>

@@ -29,6 +29,7 @@ const [loadingV,setLoadingV] = useState(false)
        // body:raw,
        redirect: 'follow',
        }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
+        setLoadingV(false)
        setEncounters(requestBody.results)
        encounters.map(enc=>{
         var fetched_visit;
@@ -47,8 +48,8 @@ const [loadingV,setLoadingV] = useState(false)
     }
   }
   )
-  setLoadingV(false)
-}
+
+},
 )
   };
   //if a fetched encounter contains a visit id displayed on the ui,
