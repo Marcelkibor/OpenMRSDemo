@@ -55,7 +55,7 @@ function getObservations(data){
   console.log("This visit has this ",data," observation")
 }
   return (
-    <div>
+    <div style={{display:"flex"}}>
      <div className='patientVisits'>
         <h5>Visits:</h5>
   {visits.map((item,index) => (
@@ -72,14 +72,17 @@ function getObservations(data){
   ))}
 
     </div>
+    <div className='patientVitals'>
       {observations?
-        <div className='patientVitals'>
+        <div>
       <h5>Vitals:</h5>
       {observations.map(obs=>(
         <p>{obs.uuid}<br></br>{obs.display}</p> 
       ))}
-      </div>:<p style={{color:"white"}}>No vitals for this visit</p>
+      </div>:<></>
       }
+    </div>
+
     </div>
   )
 }
