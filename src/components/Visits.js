@@ -8,13 +8,13 @@ import { ClipLoader } from 'react-spinners'
 const Visits = ({visits,loading,onClick}) => {
 const [accordionSummary, setAccordionSummary] = useState(null);
 const[observations,setObservations] = useState([]);
+const [loadedOBS,setLoadedOBS] = useState([]);
 const UUID = JSON.parse(window.localStorage.getItem("UUID"));
 const getSession = JSON.parse(window.localStorage.getItem("JSESSIONID"))
 const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"));
 const [loadingV,setLoadingV] = useState(false)
-
+var displayObs;
  function handleAccordionSummary(accordionSummary,newExpanded){
-  setObservations([])
   setLoadingV(true)
     setAccordionSummary(accordionSummary);
     fetch("/openmrs/ws/rest/v1/visit?patient="+UUID+"&v=full",{
@@ -28,24 +28,32 @@ const [loadingV,setLoadingV] = useState(false)
        // body:raw,
        redirect: 'follow',
        }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
-        setLoadingV(false)
+       
         setObservations(requestBody.results)
-        console.log(requestBody.results)
-
+        // console.log(requestBody.results)
         observations.map(obs=>{
           if(obs.uuid===accordionSummary){
             obs.encounters.map(enc=>{
               enc.obs.map(s_obs=>{
-               console.log("observations are:",s_obs)
+                displayObs = s_obs
+                getObs(displayObs)
               })
         })
           }
+         
+      })
+       
 
-})
 },
 )
-
+const getObs =(data)=>{
+  // console.log("retrieved observations are", data, "of type", typeof data)
+  setLoadedOBS(data)
+  console.log("retrieved object contains", loadedOBS, "of type", typeof loadedOBS)
+   setLoadingV(false)
+}
   };
+  const values = Object.values(loadedOBS);
   return (
     <div style={{display:"flex"}}>
      <div className='patientVisits'>
@@ -70,6 +78,21 @@ const [loadingV,setLoadingV] = useState(false)
   ))}
 
     </div>
+    <div className='patientVitals'>
+      {loadingV ? <ClipLoader/>:<>
+      {loadedOBS ? <>
+    <Accordion>
+      <AccordionDetails>
+      {loadedOBS.display}
+      </AccordionDetails>
+      </Accordion>
+    </>:<>No observations</>}
+      </>}
+    
+
+    </div>
+    
+   
     </div>
 
   )
