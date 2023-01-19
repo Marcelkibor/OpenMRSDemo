@@ -41,20 +41,29 @@ function Testing() {
     // "version":"1.0.0","conceptClass":"8d492774-c2cc-11de-8d13-0010c6dffd0f",
     // });
     // create observation->
-     var raw = JSON.stringify({"person":
-    "aaa70db6-f60a-4f71-b87f-aa9a60056039"
-    ,"concept":"1f1b72b2-02d9-44a7-aae7-9fedcfd8553e",
-    "encounter":"6b5c4f05-255e-4149-9d29-dd7dd5ab9c82",
-    "obsDatetime":"2019-11-14T07:37:31.000+0000","value":35});
+    //  var raw = JSON.stringify({"person":
+    // "aaa70db6-f60a-4f71-b87f-aa9a60056039"
+    // ,"concept":"1f1b72b2-02d9-44a7-aae7-9fedcfd8553e",
+    // "encounter":"6b5c4f05-255e-4149-9d29-dd7dd5ab9c82",
+    // "obsDatetime":"2019-11-14T07:37:31.000+0000","value":35});
 
-    fetch("/openmrs/ws/rest/v1/visit/7593c281-a335-4b1f-be88-4fd171a12fcb?purge=true",{
+    // create an encounter
+    // var raw = JSON.stringify({"encounterDatetime":"2015-02-24T06:08:25.000+0000",
+    // "patient":"aaa70db6-f60a-4f71-b87f-aa9a60056039",
+    // "encounterType":"67a71486-1a54-468f-ac3e-7091a9a79584",
+    // "location":"aff27d58-a15c-49a6-9beb-d30dcfc0c66e",
+    // "encounterProviders":[{"provider":"62695a35-6985-4bdf-9603-0c36bab320b1"}]
+    // });
+
+    // var raw = JSON.stringify({"encounterDatetime":"2015-02-24T06:08:25.000+0001","patient":"aaa70db6-f60a-4f71-b87f-aa9a60056039","visit":"73c52447-bb63-4c43-a7f9-2d74cf6c2f1e"});
+
+    fetch("/openmrs/ws/rest/v1/visit/f8f61631-0648-4036-9b8b-957e44218903",{
       headers:{
       "Content-Type":"application/json",
       'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
       "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
       },
-      credentials:"same-origin",
-      method:"delete",
+      method:"get",
       // body:raw,
       redirect: 'follow',
       }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
@@ -69,4 +78,6 @@ function Testing() {
   }
   // 65724ce7-b718-447a-b8ca-d0589619d17b, 6b4c1fe1-e2e6-497e-94d3-793bd072514e, f7517ab3-57b2-4cb9-b867-166aafd19ff2
   // /openmrs/ws/rest/v1/obs/4b2412bd-b538-4038-81d4-d2af153082b6?purge=true
+
+  // list enc ->/openmrs/ws/rest/v1/encounter?patient=aaa70db6-f60a-4f71-b87f-aa9a60056039
 export default Testing
