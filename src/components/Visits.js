@@ -14,6 +14,7 @@ const getSession = JSON.parse(window.localStorage.getItem("JSESSIONID"))
 const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"));
 const [loadingV,setLoadingV] = useState(false)
  function handleAccordionSummary(accordionSummary,newExpanded){
+  console.log("visit id is ",accordionSummary)
   setObservations([])
   window.localStorage.removeItem("OBS")
   setLoadingV(true)
@@ -70,10 +71,10 @@ function getObservations(data){
     <span key={item.uuid}>
       <Accordion>
   <AccordionSummary   expandIcon={<ExpandMoreIcon />} className='visitBorder'  onClick={() => handleAccordionSummary(item.uuid)} >
-      <Typography>{item.uuid}</Typography>
+      <Typography>{item.display}</Typography>
     </AccordionSummary>
     <AccordionDetails  >
-    <Typography>{item.display}</Typography>
+    <Typography>{item.uuid}</Typography>
     </AccordionDetails>
     </Accordion>
     </span>
@@ -91,9 +92,6 @@ function getObservations(data){
       {observations.map(obs=>(
         <span key={obs.uuid}>
           <Accordion>
-    <AccordionSummary   expandIcon={<ExpandMoreIcon />} >
-      <Typography>{obs.uuid}</Typography>
-    </AccordionSummary>
           <AccordionDetails  >
     <Typography>{obs.display}</Typography>
     </AccordionDetails>

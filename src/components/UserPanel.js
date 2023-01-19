@@ -39,7 +39,7 @@ const paginate = pageNumber =>setCurrentPage(pageNumber);
       {loading ? <ClipLoader color='white'
 size={120}/>:<>
 <div className = "fetchedUser" style={{padding:'5% 10% 0% 0%'}}>
-<span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Patient: <PersonIcon style={{color:'white', fontSize:'30px'}}/></span><br></br>
+<span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Patient: <PersonIcon style={{color:'white', fontSize:'45px'}}/></span><br></br>
             <span style={{color:'white'}}>Name: {NM}</span><br></br>
             <span style={{color:'white'}} >Gender: {GN}</span><br></br>
             <span style={{color:'white'}}>BirthDate: {BT}</span><br></br>
