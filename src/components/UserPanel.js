@@ -15,7 +15,7 @@ const[vitals,setVitals] = useState([])
 const [currentPage,setCurrentPage]=useState(1)
 const [postPerPage]=useState(2)
   useEffect(()=>{
-    fetch("/openmrs/ws/rest/v1/visit?patient="+UUID+"&concept=18316c68-b5f9-4986-b76d-9975cd0ebe31&fromdate=2016-10-08&v=default",{
+    fetch("/openmrs/ws/rest/v1/visit?patient="+UUID+"&v=full",{
       headers:{
       "Content-Type":"application/json",
       'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
@@ -25,6 +25,7 @@ const [postPerPage]=useState(2)
       method:"get",
       redirect: 'follow',
       }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
+        console.log(requestBody.results)
         setVisit(requestBody.results)
         isLoaded(false) 
       },)
