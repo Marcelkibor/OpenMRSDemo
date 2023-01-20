@@ -10,7 +10,14 @@ const ObservationComponent = (data) => {
     <div>
        {data.data.map(obs=> (
          <>
-         <>{obs.display}</>
+         <Accordion>
+            <AccordionSummary>
+            <>
+         {obs.display}
+         </> 
+            </AccordionSummary>
+        
+         </Accordion>
          </>
        )
        )

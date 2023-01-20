@@ -17,6 +17,7 @@ const Visits = ({ visits, loading, onClick }) => {
   const  [patientObs,setPatientObs] =useState([]);
   var displayObs;
   var gettedObs;
+  var patientBirthDate;
   const [loadedOBS, setLoadedOBS] = useState([]);
   function handleAccordionSummary(accordionSummary, newExpanded) {
     // JSON.parse(window.localStorage.removeItem("OBS"))
@@ -66,10 +67,12 @@ const Visits = ({ visits, loading, onClick }) => {
               <AccordionSummary expandIcon={<ExpandMoreIcon />} className='visitBorder'
                 onClick={() => handleAccordionSummary(item.uuid)}
               >
-                <Typography>Location: {item.uuid}</Typography>
+                <Typography>Location: {item.location.display}</Typography>
               </AccordionSummary>
               <AccordionDetails  >
-                <Typography>Date: {item.startDatetime}</Typography>
+                <Typography>
+                  Date: {item.startDatetime.split("T")[0]}
+                  </Typography>
               </AccordionDetails>
               <AccordionDetails>
                 <Typography>Visit Type: {item.visitType.display}</Typography>

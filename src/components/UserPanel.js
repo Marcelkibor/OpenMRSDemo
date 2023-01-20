@@ -43,7 +43,7 @@ size={120}/>:<>
 <span style={{fontSize:"20px", fontWeight:'bolder', color:'white'}}>Patient: <PersonIcon style={{color:'white', fontSize:'45px'}}/></span><br></br>
             <span style={{color:'white'}}>Name: {NM}</span><br></br>
             <span style={{color:'white'}} >Gender: {GN}</span><br></br>
-            <span style={{color:'white'}}>BirthDate: {BT}</span><br></br>
+            <span style={{color:'white'}}>BirthDate: {BT.split("T")[0]}</span><br></br>
 </div>
 <Visits visits={visit} loading={loading} />
 {/* <Pagination paginate={paginate} postPerPage={postPerPage} totalPosts={visit.length}/>    */}
