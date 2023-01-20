@@ -5,7 +5,6 @@ const [logOut,isLoggedOut] = useState(false);
 //get btoa for destroying a session
 const getBtoa = JSON.parse(window.localStorage.getItem("BTOA"))
 const logOutSession = ()=>{
-// this function performs log out and destroying of the Jsession id
 fetch("openmrs/ws/rest/v1/session",{
 headers:{
 "Content-Type":"application/x-javascript;charset=UTF-8",
@@ -39,9 +38,6 @@ redirect: 'follow'
 </li>
 <li>
 <a  href = "/"onClick={logOutSession}>Log Out</a>
-</li>
-<li>
-<a  href = "/test">Testing</a>
 </li>
 </ul>
 </div>

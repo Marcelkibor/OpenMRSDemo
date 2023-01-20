@@ -53,7 +53,7 @@ isLoading(false)
 color='blue'
 size={60}
 />:<>
-<div style={{margin:'10% 0% 0% 28vw' ,padding:'2% 2% 2% 2%', backgroundColor:"#00b894", maxWidth:'fit-content', borderRadius:'15px'}}>
+<div style={{margin:'auto', marginTop:'20vh' ,padding:'2% 2% 2% 2%', backgroundColor:"#00b894", maxWidth:'fit-content', borderRadius:'15px'}}>
   <h6 style={{color:"white",textAlign:'center', fontWeight:'800'}}>Authenticate <AccountBoxIcon style={{color:"white",fontSize:'30px'}}/> </h6>
 <Form>
 <Form.Label style={{fontWeight:'600', color:'white'}}>Username:</Form.Label>&nbsp;

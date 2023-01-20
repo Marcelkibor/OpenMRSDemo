@@ -68,7 +68,7 @@ useEffect(()=>{
         {window.localStorage.setItem("GN",JSON.stringify(user.person.gender))}
 </span></h6> </span>
         <span style={{color:'white'}}> 
-        <h6  style={{fontSize:"16px"}} >BirthDate: <span style={{fontWeight:"300"}}>{user.person.birthdate}</span>
+        <h6  style={{fontSize:"16px"}} >BirthDate: <span style={{fontWeight:"300"}}>{user.person.birthdate.split("T")[0]}</span>
         </h6></span>
         <span style={{color:'white'}}>
           <h6 style={{fontSize:"16px"}} >Gender: <span style={{fontWeight:"300"}}>{user.person.gender}</span></h6> </span>

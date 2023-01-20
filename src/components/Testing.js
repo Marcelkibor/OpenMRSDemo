@@ -41,29 +41,42 @@ function Testing() {
     // "version":"1.0.0","conceptClass":"8d492774-c2cc-11de-8d13-0010c6dffd0f",
     // });
     // create observation->
-    //  var raw = JSON.stringify({"person":
-    // "aaa70db6-f60a-4f71-b87f-aa9a60056039"
-    // ,"concept":"1f1b72b2-02d9-44a7-aae7-9fedcfd8553e",
-    // "encounter":"6b5c4f05-255e-4149-9d29-dd7dd5ab9c82",
-    // "obsDatetime":"2019-11-14T07:37:31.000+0000","value":35});
+     var raw = JSON.stringify({"person":
+    "66d5327e-3b09-4edc-8aae-5291eb9707d5"
+    ,"concept":"5d9bceca-e0e5-4cfa-b133-2c7b12d1981f",
+    "encounter":"4c97a99a-a139-4020-b131-50961ae2a582",
+    "obsDatetime":"2015-02-25T09:57:31.000+0000","value":35});
 
     // create an encounter
-    // var raw = JSON.stringify({"encounterDatetime":"2015-02-24T06:08:25.000+0000",
-    // "patient":"aaa70db6-f60a-4f71-b87f-aa9a60056039",
-    // "encounterType":"67a71486-1a54-468f-ac3e-7091a9a79584",
+
+// creates a visit->
+    // var raw = JSON.stringify({"patient":"66d5327e-3b09-4edc-8aae-5291eb9707d5",
+    // "visitType":"7b0f5697-27e3-40c4-8bae-f4049abfb4ed","startDatetime":"2015-02-25T04:09:25.000Z",
     // "location":"aff27d58-a15c-49a6-9beb-d30dcfc0c66e",
-    // "encounterProviders":[{"provider":"62695a35-6985-4bdf-9603-0c36bab320b1"}]
-    // });
+    // "encounters":["4c97a99a-a139-4020-b131-50961ae2a582"]});
 
     // var raw = JSON.stringify({"encounterDatetime":"2015-02-24T06:08:25.000+0001","patient":"aaa70db6-f60a-4f71-b87f-aa9a60056039","visit":"73c52447-bb63-4c43-a7f9-2d74cf6c2f1e"});
+// marcels visits->c4feda70-ca27-4e7d-afb2-75c1b2686bc6,75e16aee-8f47-4036-86b2-7adc4ab1d38c
+// var raw = JSON.stringify({"location":"75e16aee-8f47-4036-86b2-7adc4ab1d38c"});
+// var raw = JSON.stringify({"encounterDatetime":"2020-12-01T06:10:25.000+0000",
+// "patient":"66d5327e-3b09-4edc-8aae-5291eb9707d5",
+// "encounterType":"67a71486-1a54-468f-ac3e-7091a9a79584",
+// "location":"aff27d58-a15c-49a6-9beb-d30dcfc0c66e",
+// "encounterProviders":[{"provider":"62695a35-6985-4bdf-9603-0c36bab320b1"}],
+// });
 
-    fetch("/openmrs/ws/rest/v1/visit/f8f61631-0648-4036-9b8b-957e44218903",{
+// var raw = JSON.stringify({"encounterDatetime":"2015-02-25T06:09:25.000+0000",
+// "patient":"66d5327e-3b09-4edc-8aae-5291eb9707d5","encounterType":"67a71486-1a54-468f-ac3e-7091a9a79584",
+// "location":"aff27d58-a15c-49a6-9beb-d30dcfc0c66e"});
+
+// 4c97a99a-a139-4020-b131-50961ae2a582
+fetch("/openmrs/ws/rest/v1/visit/75e16aee-8f47-4036-86b2-7adc4ab1d38c?purge=true",{
       headers:{
       "Content-Type":"application/json",
       'Authorization': 'Basic '+window.localStorage.getItem("BTOA"),
       "Cookie": "JSESSIONID="+window.localStorage.getItem("JSESSIONID"), 
       },
-      method:"get",
+      // method:"delete",
       // body:raw,
       redirect: 'follow',
       }).then((Response)=>Promise.all([Response.json(),Response.headers])).then(([requestBody,headers])=>{
