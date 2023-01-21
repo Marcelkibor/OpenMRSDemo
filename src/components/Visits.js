@@ -62,14 +62,14 @@ const Visits = ({ visits, loading, onClick }) => {
               <AccordionSummary expandIcon={<ExpandMoreIcon />} className='visitBorder'
                 onClick={() => handleAccordionSummary(item.uuid)} 
               >
-                <Typography><span > Visit Date:</span> {item.startDatetime.split("T")[0]}</Typography>
+                <Typography><span style={{fontWeight:'600'}}> Visit Date:</span> {item.startDatetime.split("T")[0]}</Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Typography><span >Visit Type:</span> {item.visitType.display}</Typography>
+                <Typography><span style={{fontWeight:'600'}}>Visit Type:</span> {item.visitType.display}</Typography>
               </AccordionDetails>
               <AccordionDetails  >
                 <Typography>
-                <span >Visit Id:</span>{item.uuid}
+                <span style={{fontWeight:'600'}}>Location:</span>{item.location.display}
                   </Typography>
               </AccordionDetails>
             </Accordion>
