@@ -72,6 +72,11 @@ const Visits = ({ visits, loading, onClick }) => {
                 <span style={{fontWeight:'600'}}>Location:</span>{item.location.display}
                   </Typography>
               </AccordionDetails>
+              <AccordionDetails  >
+                <Typography>
+                <span style={{fontWeight:'600'}}>Time: </span>{item.startDatetime.split("T")[1].split(".")[0]}
+                  </Typography>
+              </AccordionDetails>
             </Accordion>
           </span>
         ))}
